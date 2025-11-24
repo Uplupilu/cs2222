@@ -167,3 +167,109 @@ footer {
     color: #555;
     font-size: 0.8rem;
 }
+/* --- Стили для страницы игрока (player.html) --- */
+
+.back-btn {
+    display: inline-block;
+    margin-top: 10px;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    border: 1px solid #444;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background-color: var(--navi-yellow);
+    color: #000;
+    border-color: var(--navi-yellow);
+}
+
+.profile-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Левая колонка (Фото и инфо) */
+.profile-sidebar {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    background: var(--navi-dark-grey);
+    padding: 30px;
+    border-radius: 10px;
+    border-top: 5px solid var(--navi-yellow);
+}
+
+.big-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--navi-yellow);
+    box-shadow: 0 0 20px rgba(255, 221, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.profile-nick {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 0;
+    color: var(--text-white);
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+/* Правая колонка (История команд) */
+.profile-history {
+    flex: 2;
+    min-width: 300px;
+}
+
+.history-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--navi-yellow);
+    font-weight: bold;
+}
+
+.team-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-item {
+    background: #151515;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 3px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.history-item:hover {
+    border-left-color: var(--navi-yellow);
+    background: #1a1a1a;
+    transform: translateX(5px);
+}
+
+.team-year {
+    font-weight: bold;
+    color: var(--navi-yellow);
+    font-size: 1.1rem;
+}
+
+.team-name {
+    font-size: 1.2rem;
+}
