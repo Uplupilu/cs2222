@@ -273,3 +273,18 @@ footer {
 .team-name {
     font-size: 1.2rem;
 }
+
+.player-meta {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #bbb;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.player-meta span {
+    color: var(--navi-yellow);
+    font-weight: bold;
+}
