@@ -1,9 +1,10 @@
-// 1. Расширенные данные о составе + История команд
+// 1. Данные о составе + Дата рождения (ГГГГ-ММ-ДД) + История
 const currentRoster = [
     { 
         nick: "Aleksib", 
         name: "Aleksi Virolainen", 
         role: "IGL", 
+        birthDate: "1997-03-30", // Дата рождения
         photo: "https://img-cdn.hltv.org/playerbodyshot/9h_l-8y-7k-Fj-5d-3s-2a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=1f1f1f",
         history: [
             { year: "2023 - Present", team: "Natus Vincere" },
@@ -17,6 +18,7 @@ const currentRoster = [
         nick: "iM", 
         name: "Mihai Ivan", 
         role: "Rifler", 
+        birthDate: "1999-07-29",
         photo: "https://img-cdn.hltv.org/playerbodyshot/p5_l-9y-2k-Gj-4d-1s-8a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=2a2a2a",
         history: [
             { year: "2023 - Present", team: "Natus Vincere" },
@@ -28,6 +30,7 @@ const currentRoster = [
         nick: "b1t", 
         name: "Valerij Vakhovsjkyj", 
         role: "Rifler", 
+        birthDate: "2003-01-05",
         photo: "https://img-cdn.hltv.org/playerbodyshot/k4_l-5y-3k-Hj-9d-2s-7a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=3b3b3b",
         history: [
             { year: "2020 - Present", team: "Natus Vincere" },
@@ -38,6 +41,7 @@ const currentRoster = [
         nick: "jL", 
         name: "Justinas Lekavicius", 
         role: "Rifler", 
+        birthDate: "1999-09-29",
         photo: "https://img-cdn.hltv.org/playerbodyshot/o2_l-1y-6k-Ij-8d-4s-5a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=4c4c4c",
         history: [
             { year: "2023 - Present", team: "Natus Vincere" },
@@ -49,6 +53,7 @@ const currentRoster = [
         nick: "w0nderful", 
         name: "Ihor Zhdanov", 
         role: "AWPer", 
+        birthDate: "2004-12-14",
         photo: "https://img-cdn.hltv.org/playerbodyshot/m8_l-4y-8k-Jj-7d-6s-9a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=5d5d5d",
         history: [
             { year: "2023 - Present", team: "Natus Vincere" },
@@ -61,6 +66,7 @@ const currentRoster = [
         nick: "B1ad3", 
         name: "Andrij Ghorodensjkyj", 
         role: "Coach", 
+        birthDate: "1986-10-11",
         photo: "https://img-cdn.hltv.org/playerbodyshot/n3_l-7y-5k-Kj-1d-9s-0a.png?bg=3e4c54&h=800&ixlib=java-2.1.0&rect=132%2C12%2C451%2C451&w=800&s=6e6e6e",
         history: [
             { year: "2019 - Present", team: "Natus Vincere (Coach)" },
@@ -81,18 +87,34 @@ const majorsData = [
 
 const fallbackImage = "https://www.hltv.org/img/static/player/player_silhouette.png";
 
+// Вспомогательная функция: Расчет возраста
+function calculateAge(birthDateString) {
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    // Если день рождения еще не наступил в этом году, вычитаем 1 год
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+// Вспомогательная функция: Красивый формат даты (30.03.1997)
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU');
+}
+
 // --- ФУНКЦИЯ 1: Отрисовка ГЛАВНОЙ страницы ---
 function renderHome() {
-    // Рендер состава
     const rosterContainer = document.getElementById('active-roster');
     if (rosterContainer) {
         currentRoster.forEach(player => {
             const card = document.createElement('div');
-            // Добавляем курсор pointer, чтобы было понятно, что можно кликать
             card.className = 'player-card';
             card.style.cursor = 'pointer';
             
-            // При клике переходим на player.html с параметром ?nick=ИМЯ
             card.onclick = () => {
                 window.location.href = `player.html?nick=${player.nick}`;
             };
@@ -114,7 +136,6 @@ function renderHome() {
         });
     }
 
-    // Рендер истории (тот же код, что и был)
     const historyContainer = document.getElementById('majors-list');
     if (historyContainer) {
         let totalMoney = 0;
@@ -149,13 +170,11 @@ function renderHome() {
 // --- ФУНКЦИЯ 2: Отрисовка страницы ИГРОКА ---
 function renderPlayerProfile() {
     const profileContainer = document.getElementById('profile-content');
-    if (!profileContainer) return; // Если мы не на странице профиля, выходим
+    if (!profileContainer) return; 
 
-    // Получаем ник из URL (например, ?nick=b1t)
     const params = new URLSearchParams(window.location.search);
     const nick = params.get('nick');
 
-    // Ищем игрока в массиве
     const player = currentRoster.find(p => p.nick === nick);
 
     if (!player) {
@@ -163,7 +182,10 @@ function renderPlayerProfile() {
         return;
     }
 
-    // Генерируем HTML для истории команд
+    // Считаем возраст и форматируем дату
+    const age = calculateAge(player.birthDate);
+    const formattedDate = formatDate(player.birthDate);
+
     const historyHtml = player.history.map(item => `
         <div class="history-item">
             <span class="team-year">${item.year}</span>
@@ -176,7 +198,12 @@ function renderPlayerProfile() {
             <img src="${player.photo}" class="big-photo" onerror="this.src='${fallbackImage}'">
             <h1 class="profile-nick">${player.nick}</h1>
             <div class="profile-name">${player.name}</div>
-            <div class="player-role" style="font-size: 1.2rem;">${player.role}</div>
+            <div class="player-role" style="font-size: 1.2rem; margin-bottom: 10px;">${player.role}</div>
+            
+            <div class="player-meta">
+                Дата рождения: <br>
+                <span>${formattedDate}</span> (${age} лет)
+            </div>
         </div>
 
         <div class="profile-history">
@@ -188,13 +215,7 @@ function renderPlayerProfile() {
     `;
 }
 
-// Запускаем код после загрузки
 document.addEventListener('DOMContentLoaded', () => {
-    // Скрипт сам поймет, какую функцию запускать, проверяя элементы на странице
-    if (document.getElementById('active-roster')) {
-        renderHome();
-    }
-    if (document.getElementById('profile-content')) {
-        renderPlayerProfile();
-    }
+    if (document.getElementById('active-roster')) renderHome();
+    if (document.getElementById('profile-content')) renderPlayerProfile();
 });
