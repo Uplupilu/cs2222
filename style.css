@@ -1,0 +1,169 @@
+:root {
+    --navi-yellow: #FFDD00;
+    --navi-black: #111111;
+    --navi-dark-grey: #1e1e1e;
+    --text-white: #ffffff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--navi-black);
+    color: var(--text-white);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 60px 0;
+    background: linear-gradient(180deg, #000 0%, #1e1e1e 100%);
+    border-bottom: 3px solid var(--navi-yellow);
+}
+
+.logo {
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.logo span {
+    color: var(--navi-yellow);
+}
+
+/* Sections */
+section {
+    padding: 40px 0;
+}
+
+h2 {
+    border-left: 5px solid var(--navi-yellow);
+    padding-left: 15px;
+    margin-bottom: 30px;
+}
+
+/* Current Roster Cards */
+.roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Чуть шире для фото */
+    gap: 20px;
+}
+
+.player-card {
+    background-color: var(--navi-dark-grey);
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #333;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--navi-yellow);
+    box-shadow: 0 5px 15px rgba(255, 221, 0, 0.1);
+}
+
+/* Новые стили для фото */
+.player-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Круглая форма */
+    object-fit: cover;  /* Чтобы фото не растягивалось */
+    margin-bottom: 15px;
+    border: 3px solid var(--navi-yellow);
+    background-color: #000;
+}
+
+.player-nick {
+    font-weight: 900;
+    font-size: 1.4rem;
+    color: var(--text-white);
+}
+
+.player-real-name {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.player-role {
+    display: inline-block;
+    background-color: #333;
+    color: var(--navi-yellow);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Stats */
+#stats .container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stats-box {
+    background: var(--navi-dark-grey);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+}
+
+.stats-box h3 { margin: 0; opacity: 0.7; }
+.stats-box p { font-size: 2.5rem; font-weight: bold; margin: 10px 0 0 0; }
+.stats-box.highlight p { color: var(--navi-yellow); }
+
+/* Majors History List */
+.major-card {
+    background: var(--navi-dark-grey);
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.major-card.winner {
+    border: 2px solid var(--navi-yellow);
+    box-shadow: 0 0 15px rgba(255, 221, 0, 0.2);
+}
+
+.major-info h3 { margin: 0 0 5px 0; font-size: 1.5rem; }
+.major-info span { color: #888; font-size: 0.9rem; }
+.major-result { font-weight: bold; color: var(--navi-yellow); }
+
+.lineup {
+    margin-top: 15px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.lineup span {
+    background: #000;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    font-size: 0.8rem;
+}
